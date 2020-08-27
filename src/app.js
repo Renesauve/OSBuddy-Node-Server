@@ -10,7 +10,6 @@ const typeDefs = gql`
   }
   type Item {
     id: ID
-    itemId: Int
     name: String
     members: Boolean
     sp: Int

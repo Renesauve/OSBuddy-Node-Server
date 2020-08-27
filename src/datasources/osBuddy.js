@@ -6,8 +6,8 @@ class osBuddy extends RESTDataSource {
     this.baseURL = "https://storage.googleapis.com/osb-exchange/summary.json";
   }
   async getAllItems() {
-    const response = await this.get("items");
-    return Array.isArray(response)
+    const response = await this.get([]);
+    return Object.isObject(response)
       ? response.map((items) => this.ItemsFinder(items))
       : [];
   }
@@ -15,7 +15,6 @@ class osBuddy extends RESTDataSource {
   async ItemsFinder(items) {
     return {
       id: items.id,
-      itemId: items.itemId,
       name: items.name,
       members: items.members,
       sp: items.sp,
@@ -27,14 +26,14 @@ class osBuddy extends RESTDataSource {
       overallQuantity: items.overallQuantity,
     };
   }
-  async getItemsById({ItemsId}) {
-    const response = await this.get("Items", {ItemId: ItemsId});
-    return this.ItemsFinder(response[0]);
-  }
+  //   async getItemsById({ItemsId}) {
+  //     const response = await this.get("Items", {ItemId: ItemsId});
+  //     return this.ItemsFinder(response[0]);
+  //   }
 
-  getItemsesByIds({ItemsIds}) {
-    return Promise.all(ItemsIds.map((ItemsId) => this.getItemsById({ItemsId})));
-  }
+  //   getItemsesByIds({ItemsIds}) {
+  //     return Promise.all(ItemsIds.map((ItemsId) => this.getItemsById({ItemsId})));
+  //   }
 }
 
 module.exports = osBuddy;
